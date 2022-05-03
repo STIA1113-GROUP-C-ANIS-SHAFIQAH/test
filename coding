@@ -1,0 +1,207 @@
+package Assignment;
+import java.util.ArrayList;
+import java.util.Scanner;
+class Student {
+
+    public class StudentManager {
+	public static void main(String[] args) {
+
+        ArrayList<Student>array=new ArrayList<>();
+ 
+        while (true) {
+          
+            System.out.println("--------- welcome to the student management system ------");
+            System.out.println("1. Add students");
+            System.out.println("2. Delete students");
+            System.out.println("3. Modify students");
+            System.out.println("4. View all students");
+            System.out.println("5. Exit");
+            System.out.println("please enter your choice");
+
+           
+            Scanner sc = new Scanner(System.in);
+            String line = sc.nextLine();
+
+         
+            switch (line) {
+                case "1":
+
+                    addStudent(array);
+                    break;
+                case "2":
+
+                    deleteStudent(array);
+                    break;
+                case "3":
+
+                    updateStudet(array);
+                    break;
+                case "4":
+
+                    FindallStudent(array);
+                    break;
+                case "5":
+                    System.out.println("thank you for using");
+//                    break;
+                    System. exit(0);
+
+            }
+        }
+    }
+
+    public static void addStudent(ArrayList<Student> array) {
+        Scanner sc=new Scanner(System.in);
+
+        String sid;
+  
+        while (true) {
+            System.out.println("please enter student ID");
+             sid=sc.nextLine();
+
+            boolean flag=isUsed(array,sid);
+            if (flag) {
+                System.out.println("the student number you entered has been occupied, please re-enter");
+            } else {
+                break;
+            }
+        }
+
+
+
+        System.out.println("please enter student name");
+        String name=sc.nextLine();
+        System.out.println("please enter student age");
+        String age=sc.nextLine();
+        System.out.println("please enter the student's residence");
+        String address=sc.nextLine();
+ 
+        Student s=new Student();
+        s.setSid(sid);
+        s.setName(name);
+        s.setAge(age);
+        s.setAddress(address);
+     
+        array.add(s);
+
+        System.out.println("student added successfully");
+    }
+
+    
+    public static boolean isUsed(ArrayList<Student> array,String sid) {
+         
+          boolean flag=false;
+          for (int i=0;i< array.size();i++) {
+              Student s=array.get(i);
+              if (((Student) s).getSid().equals(sid)) {
+                  flag=true;
+                  break;
+              }
+          }
+          return flag;
+    }
+  
+    public static void FindallStudent(ArrayList<Student> array) {
+      
+        if (array.isEmpty()){
+            System.out.println("no information, please add information first in the query");
+      
+            return;
+        }
+  
+        System.out.println("student number \t\t\tname\t\tage\t\tplace of residence");
+     
+        for (int i=0;i< array.size();i++) {
+            Student s= array.get(i);
+            System.out.println(s.getSid() + "\t" + s.getname() + "\t" + s.getname() + "year \t \t" + s.getClass());
+        }
+    }
+
+
+    public  static void deleteStudent(ArrayList<Student> array) {
+
+        Scanner sc=new Scanner(System.in);
+
+        System.out.println("please enter the student ID of the student you want to delete");
+        String sid=sc.nextLine();
+
+       int index=-1;
+       for (int i=0;i< array.size();i++) {
+           Student s=array.get(i);
+           if (s.getSid().equals(sid)) {
+               index=i;
+               break;
+           }
+       }
+       if (index==-1) {
+           System.out.println("the information does not exist, please re-enter");
+       } else {
+           array.remove(index);
+
+           System.out.println("delete student succeeded");
+       }
+    }
+    //Define a method for modifying students
+    public  static void updateStudet(ArrayList<Student> array) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("please enter the student number of the student you want to modify:");
+        String sid= sc.nextLine();
+        //Enter the student information to be modified with the keyboard
+        System.out.println("please enter new student name:");
+        String name= sc.nextLine();
+        System.out.println("please enter the new age of the student:");
+        String age= sc.nextLine();
+        System.out.println("please enter the student's new residence:");
+        String address= sc.nextLine();
+
+        //Create student object
+        Student s=new Student();
+        s.setSid(sid);
+        s.setName(name);
+        s.setAge(age);
+        s.setAddress(address);
+
+        //Traverse the set and modify the corresponding student information
+        for (int i=0;i< array.size();i++) {
+            Student student=array.get(i);
+            if (student.getSid().equals(sid)) {
+                array.set(i,s);
+                break;
+            }
+        }
+        System.out.println("student modification succeeded");
+    }
+
+
+}
+
+	public void setSid(String sid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getname() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getSid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setAddress(String address) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setAge(String age) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+
